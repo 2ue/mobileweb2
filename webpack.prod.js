@@ -31,6 +31,8 @@ var config = {
               threeVersion: true
             }
           }, {
+            loader: 'postcss-loader'
+          }, {
             loader: "sass-loader"
           }, ]
         })

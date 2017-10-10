@@ -48,57 +48,61 @@ body {
 
 ```javascript
 module: {
-    rules: [{
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [{
-            loader: "css-loader"
-          }, {
-            loader: "px2rem-loader",
-            options: {
-              remUnit: 75,
-              threeVersion: true
-            }
-          }, {
-            loader: "sass-loader"
-          }, ]
-        })
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
+  rules: [{
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    },
+    {
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
         use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 4096
-          }
-        }]
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader'
-        ]
-      },
-      {
-        test: require.resolve('jquery'),
-        use: [{
-          loader: 'expose-loader',
-          options: 'jQuery'
+          loader: "css-loader"
         }, {
-          loader: 'expose-loader',
-          options: '$'
-        }]
-      }
-    ]
-  },
+          loader: "px2rem-loader",
+          options: {
+            remUnit: 75,
+            threeVersion: true
+          }
+        }, {
+          loader: 'postcss-loader'
+        }, {
+          loader: "sass-loader"
+        }, ]
+      })
+    },
+    {
+      test: /\.(png|svg|jpg|gif)$/,
+      use: [{
+        loader: 'url-loader',
+        options: {
+          limit: 4096
+        }
+      }]
+    },
+    {
+      test: /\.(woff|woff2|eot|ttf|otf)$/,
+      use: [
+        'file-loader'
+      ]
+    },
+    {
+      test: require.resolve('jquery'),
+      use: [{
+        loader: 'expose-loader',
+        options: 'jQuery'
+      }, {
+        loader: 'expose-loader',
+        options: '$'
+      }]
+    }
+  ]
+},
 ```
 
 主要是px2rem-loader这里的对px2rem的相关配置，我这里设计稿750，因此设定75，其他参数可自行[参考文档](https://github.com/songsiqi/px2rem)。
+
+> 注：这个demo依然有引入PostCSS，因为webpack下没有一个很好autoprefixer的loader（其实有一个[autoprefixer-loader](https://www.npmjs.com/package/autoprefixer-loader)，该loader也提示了autoprefixer官方推荐使用postcss-loader替代），因此依然加入了PostCSS混合SASS开发。
 
 ### 运行方法
 
