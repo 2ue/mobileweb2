@@ -102,7 +102,56 @@ module: {
 
 主要是px2rem-loader这里的对px2rem的相关配置，我这里设计稿750，因此设定75，其他参数可自行[参考文档](https://github.com/songsiqi/px2rem)。
 
-> 注：这个demo依然有引入PostCSS，因为webpack下没有一个很好autoprefixer的loader（其实有一个[autoprefixer-loader](https://www.npmjs.com/package/autoprefixer-loader)，该loader也提示了autoprefixer官方推荐使用postcss-loader替代），因此依然加入了PostCSS混合SASS开发。
+> **注1：**
+>
+> 这个demo依然有引入PostCSS，因为webpack下没有一个很好autoprefixer的loader（其实有一个[autoprefixer-loader](https://www.npmjs.com/package/autoprefixer-loader)，该loader也提示了autoprefixer官方推荐使用postcss-loader替代），因此依然加入了PostCSS混合SASS开发。
+
+> **注2：**
+>
+> 不太确定如果单位写成PX是否会存在兼容性问题，不过在高级浏览器和我测试的几部手机观察来看未发生异常。
+>
+> 假设通过将单位故意大写为`PX`而避免转换的话，是不是相对尾部写`/*no*/`来进行过滤更为方便？
+>
+> 发现这个特征的是在学习postcss的时候用到[postcss-pxtorem](https://github.com/cuth/postcss-pxtorem)插件，碰巧测试出来的。
+>
+> 当然个人倒的确倾向于写`PX`，如果不存在兼容性问题。
+>
+> **示例：**
+> 转换前：
+>
+> ```scss
+> .pic-txts {
+>   text-align: left;
+>   border:1px solid #ddd; /*px*/
+>   border-radius: 5PX;
+>   width:690px;
+>   display: block;
+> }
+> ```
+>
+> 转换后：
+>
+> ```css
+> .pic-txts {
+>   text-align: left;
+>   border-radius: 5PX;
+>   width: 9.2rem;
+>   display: block;
+> }
+>
+> [data-dpr="1"] .pic-txts {
+>   border: 0.5px solid #ddd;
+> }
+>
+> [data-dpr="2"] .pic-txts {
+>   border: 1px solid #ddd;
+> }
+>
+> [data-dpr="3"] .pic-txts {
+>   border: 1.5px solid #ddd;
+> }
+> ```
+>
 
 ### 运行方法
 
