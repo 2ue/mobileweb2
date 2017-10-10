@@ -1,6 +1,6 @@
 # 个人尝试搭建一个快速开发移动站的架子2
 
-> 基于**[mobileweb](https://github.com/whidy/mobileweb)**进行改动，[mobileweb2](https://github.com/whidy/mobileweb2)未使用PostCSS进行处理，而是采用了比较简单的模式，webpack3 + sass + [lib-flexible 0.3.2](https://github.com/amfe/lib-flexible/tree/master) + [px2rem](https://github.com/songsiqi/px2rem)两者均采用rem单位来进行适配处理，均解决retina屏下了1px边框问题（我仅测试了iPhone部分机型的DPR2.0下情况和少量安卓机型）。
+> 基于[mobileweb](https://github.com/whidy/mobileweb)进行改动，[mobileweb2](https://github.com/whidy/mobileweb2)未使用PostCSS进行处理，而是采用了比较简单的模式，webpack3 + sass + [lib-flexible 0.3.2](https://github.com/amfe/lib-flexible/tree/master) + [px2rem](https://github.com/songsiqi/px2rem)两者均采用rem单位来进行适配处理，均解决retina屏下了1px边框问题（我仅测试了iPhone部分机型的DPR2.0下情况和少量安卓机型）。
 
 ### 搭建环境及相关配置
 
@@ -19,7 +19,7 @@
 
 ### 要解决一些问题
 
-自适应这里采用了旧版的flexible，并通过px2rem来进行单位转换，关于样式中的px值是否转换为rem或者输出多种对应不同dpr的px值，请查看插件说明进行对应的注释，例如``/*no*/``和``/*px*/``。这里有一点需要说明的是，与**[mobileweb](https://github.com/whidy/mobileweb)**不同的是，旧版的flexible具有最大宽度1080(540*dpr)的问题？也就是说当屏幕宽度大于1080的时候，两边会留出空白，而无法占满屏幕？截取一段flexible代码：
+自适应这里采用了旧版的[flexible](https://github.com/whidy/mobileweb2/blob/master/src/script/flexible.js)，并通过px2rem来进行单位转换，关于样式中的px值是否转换为rem或者输出多种对应不同dpr的px值，请查看插件说明进行对应的注释，例如``/*no*/``和``/*px*/``。这里有一点需要说明的是，与**[mobileweb](https://github.com/whidy/mobileweb)**不同的是，旧版的flexible具有最大宽度1080(540*dpr)的问题？也就是说当屏幕宽度大于1080的时候，两边会留出空白，而无法占满屏幕？截取一段[flexible](https://github.com/whidy/mobileweb2/blob/master/src/script/flexible.js#L69)代码：
 
 ```javascript
 function refreshRem() {
@@ -33,7 +33,7 @@ function refreshRem() {
 }
 ```
 
-这里有个小小的建议就是给body加上一段居中样式：
+这里有个小小的建议就是给[body](https://github.com/whidy/mobileweb2/blob/a1faf0ac6dcb5b96130669b5c9e236a68b7d38ab/src/style/index.scss#L5)加上一段居中样式：
 
 ```css
 body {
@@ -44,7 +44,7 @@ body {
 
 这样当设备宽度大于设计稿的宽度时，则整体页面居中，更加美观。（再次强调mobileweb中用的最新的flexible会自动扩展到满屏，不存在该问题。）
 
-### 附加：关于webpack配置写法参考
+### 附加：关于[webpack配置](https://github.com/whidy/mobileweb2/blob/master/webpack.dev.js)写法参考
 
 ```javascript
 module: {
@@ -98,9 +98,9 @@ module: {
   },
 ```
 
-主要是px2rem-loader这里的对px2rem的相关配置，我这里设计稿750，因此设定75，其他参数可自行参考文档。
+主要是px2rem-loader这里的对px2rem的相关配置，我这里设计稿750，因此设定75，其他参数可自行[参考文档](https://github.com/songsiqi/px2rem)。
 
-###运行方法
+### 运行方法
 
 请依次分布执行
 
