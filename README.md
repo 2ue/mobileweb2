@@ -15,7 +15,7 @@
 - jquery
 - normalize
 - [lib-flexible 0.3.2](https://github.com/amfe/lib-flexible/tree/master)
-- [px2rem](https://github.com/songsiqi/px2rem)
+- [px2rem](https://github.com/songsiqi/px2rem) + [px2rem-loader](https://github.com/Jinjiang/px2rem-loader)
 
 ### 要解决一些问题
 
